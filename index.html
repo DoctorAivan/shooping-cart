@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <!-- Tags de Configuracion -->
+    <meta name="html" content="text/html;" http-equiv="content-type" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Librerias Fuentes -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet">
+
+    <!-- Libreria Iconos Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+    <!-- Libreria de estilo CSS -->
+    <link rel="stylesheet" type="text/css" href="css/cart.css"/>
+
+</head>
+<body>
+
+    <div id="cart">
+        <h1>Shooping Store Demo</h1>
+        <div id="cart-list">
+            <div class="cart-list-product header">
+                <div>#</div>
+                <div>Product Name</div>
+                <div class="cant">Cant</div>
+                <div></div>
+                <div></div>
+                <div class="price">Price</div>
+                <div>Options</div>
+            </div>
+            <div id="cart-product-added"></div>
+            <div class="cart-list-product">
+                <div></div>
+                <div>Products overview</div>
+                <div class="cant cant-total">Cant</div>
+                <div></div>
+                <div></div>
+                <div class="price price-total">Price</div>
+                <div class="button" id="cart-empty-button">EMPTY</div>
+            </div>
+        </div>
+        <div id="cart-products"></div>
+    </div>
+
+    <template id="template-product-div">
+        <div class="cart-products-item">
+            <figure>
+                <img src="" alt="" />
+            </figure>
+            <header>
+                <h2>Producto</h2>
+                <h3>Precio</h3>
+            </header>
+            <section>
+                <div class="button">Add to Cart</div>
+            </section>
+        </div>
+    </template>
+
+    <template id="template-cart-product">
+        <div class="cart-list-product">
+            <div class="id">#1</div>
+            <div class="title">Product Name</div>
+            <div class="cant">Cant</div>
+            <i class="fas fa-plus-circle"></i>
+            <i class="fas fa-minus-circle"></i>
+            <div class="price">Price</div>
+            <div class="button delete-item">DELETE</div>
+        </div>
+    </template>
+
+    <script type="text/javascript" src="js/cart.js"></script>
+
+</body>
+</html>
