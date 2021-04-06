@@ -1,0 +1,82 @@
+[
+    {
+      "id": 1,
+      "title": "Paltas",
+      "description": "Pequeña escripción del producto",
+      "price": 2750,
+      "size": "500 Gramos",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/424554-180-180/Palta-Hass-granel.jpg?v=637521224854400000"
+    },
+    {
+      "id": 2,
+      "title": "Tomate",
+      "description": "Pequeña escripción del producto",
+      "price": 1000,
+      "size": "1 Kilo",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/355918-180-180/Principal-9264.jpg?v=637352624194700000"
+    },
+    {
+      "id": 3,
+      "title": "Papas",
+      "description": "Pequeña escripción del producto",
+      "price": 1250,
+      "size": "1 Kilo",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/297293-180-180/Principal-17463.jpg?v=636892328017630000"
+    },
+    {
+      "id": 4,
+      "title": "Cebolla Morada",
+      "description": "Pequeña escripción del producto",
+      "price": 1200,
+      "size": "1 Kilo",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/415935-180-180/Cebolla-morada-granel.jpg?v=637479988298570000"
+    },
+    {
+      "id": 5,
+      "title": "Limón",
+      "description": "Pequeña escripción del producto",
+      "price": 1250,
+      "size": "1 Kilo",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/424552-180-180/Limon-malla-1-kg.jpg?v=637521224850000000"
+    },
+    {
+      "id": 6,
+      "title": "Brocolí",
+      "description": "Pequeña escripción del producto",
+      "price": 1139,
+      "size": "1 Kilo",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/424497-180-180/Brocoli-unid.jpg?v=637521224580230000"
+    },
+    {
+      "id": 7,
+      "title": "Lechuga española",
+      "description": "Pequeña escripción del producto",
+      "price": 750,
+      "size": "1 Unidad",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/412371-180-180/Lechuga-espa%C3%B1ola-un.jpg?v=637469602714730000"
+    },
+    {
+      "id": 8,
+      "title": "Apio mata",
+      "description": "Pequeña escripción del producto",
+      "price": 1130,
+      "size": "1 Unidad",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/412150-180-180/260497-01_5585.jpg?v=637469591110330000"
+    },
+    {
+      "id": 9,
+      "title": "Champiñones Shitake",
+      "description": "Pequeña escripción del producto",
+      "price": 1680,
+      "size": "100 Gramos",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/234346-180-180/260589.jpg?v=636614549162070000"
+    },
+    {
+      "id": 10,
+      "title": "Betarraga orgánica",
+      "description": "Pequeña escripción del producto",
+      "price": 1990,
+      "size": "5 Unidades",
+      "img": "https://jumbo.vtexassets.com/arquivos/ids/356119-180-180/Principal-45055.jpg?v=637353848775170000"
+    }
+  ]

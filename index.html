@@ -10,6 +10,10 @@
     <!-- Librerias Fuentes -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet">
 
+    <!-- Jquery Lib-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
     <!-- Libreria Iconos Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 
@@ -19,8 +23,121 @@
 </head>
 <body>
 
-    <div id="cart">
-        <h1>Shooping Store Demo</h1>
+    <div id="livebox" class="livebox">
+        <div class="libebox-content" id="livebox-cart-product-add">
+            <div class="libebox-prudct-details">
+                <figure>
+                    <img src="https://jumbo.vtexassets.com/arquivos/ids/424554-180-180/Palta-Hass-granel.jpg?v=637521224854400000" />
+                </figure>
+                <div class="libebox-prudct-details-title">Tomates</div>
+                <div class="libebox-prudct-details-price">$<span>1.500</span></div>
+            </div>
+            <div class="libebox-prudct-cant">
+                <i class="fas fa-minus-circle"></i>
+                <div class="cant" id="libebox_prudct_cant">1</div>
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            <div class="libebox-prudct-cant-navegation">
+                <div class="accept">Agregar</div>
+                <div class="cancel">Cancelar</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="shopping">
+        <div id="shopping-image-fly"><img src="" /></div>
+        <header id="shopping-header">
+            <div id="shopping-header-menu" class="icon"><i class="fas fa-bars"></i></div>
+            <div class="title">PELUDISTORE</div>
+            <div id="shopping-header-user" class="icon"><i class="fas fa-user"></i></div>
+        </header>
+        <div id="shopping-cart-product-list">
+            <div class="header">
+                XXX
+            </div>
+            <div id="shopping-cart-product-list-items" class="content"></div>
+            <div class="footer">
+                <div class="ckeck-out">Realizar pedido</div>
+            </div>
+        </div>
+        <div class="menu" id="shopping-header-menu-categories">
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+            <div class="sub-menu">
+                <h2><i class="fas fa-plus"></i> Productos</h2>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                    <li><i class="fas fa-chevron-right"></i> Producto</li>
+                </ul>
+            </div>
+        </div>
+        <main id="shopping-main">
+            <section class="header">
+                <h2>Verduras</h2>
+                <div class="header-details">
+                    <div class="header-details-total">25 Productos</div>
+                    <div class="header-details-order">Ordenar <i class="fas fa-chevron-down"></i></div>
+                </div>
+            </section>
+            <section id="shopping-product-list" class="list grid col-2">
+                
+            </section>
+        </main>
+        <footer id="shopping-footer">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="products">0 Productos</div>
+            <div class="total">$ <span>0</span></div>
+            <div class="pay" id="shopping-buy"><span>COMPRAR</span></div>
+        </footer>
+    </div>
+
+    <div id="cart" style="display: none;">
+        <h1>shopping Store Demo</h1>
         <div id="cart-list">
             <div class="cart-list-product header">
                 <div>#</div>
@@ -45,19 +162,23 @@
         <div id="cart-products"></div>
     </div>
 
-    <template id="template-product-div">
-        <div class="cart-products-item">
+    <template id="template-product-list-item">
+        <article>
             <figure>
-                <img src="" alt="" />
+                <img src="https://jumbo.vteximg.com.br/arquivos/ids/424552-180-180/Limon-malla-1-kg.jpg?v=637521224850000000" />
             </figure>
-            <header>
-                <h2>Producto</h2>
-                <h3>Precio</h3>
-            </header>
-            <section>
-                <div class="button">Add to Cart</div>
-            </section>
-        </div>
+            <div class="description">
+                <div class="title">Product</div>
+                <div class="details line-2">Pequeña descripción del producto</div>
+            </div>
+            <div class="buy">
+                <div class="price">
+                    <div class="total">$<span>1000</span></div>
+                    <div class="size">1 kg</div>
+                </div>
+                <div class="icon"><i class="fas"></i></div>
+            </div>
+        </article>
     </template>
 
     <template id="template-cart-product">
@@ -65,11 +186,29 @@
             <div class="id">#1</div>
             <div class="title">Product Name</div>
             <div class="cant">Cant</div>
-            <i class="fas fa-plus-circle"></i>
+            <i class="fas fa-shopping-cart"></i>
             <i class="fas fa-minus-circle"></i>
             <div class="price">Price</div>
             <div class="button delete-item">DELETE</div>
         </div>
+    </template>
+
+    <template id="template-cart-product-list">
+        <article>
+            <figure>
+                <img src="https://jumbo.vtexassets.com/arquivos/ids/355918-180-180/Principal-9264.jpg?v=637352624194700000">
+            </figure>
+            <div class="details">
+                <div class="details-title">Papas</div>
+                <div class="details-price">$ <span>10.500</span></div>
+                <div class="details-size">$ <span>10.500</span></div>
+            </div>
+            <div class="cant">
+                <div><i class="fas fa-minus"></i></div>
+                <div class="details-cant">1</div>
+                <div><i class="fas fa-plus"></i></div>
+            </div>
+        </article>
     </template>
 
     <script type="text/javascript" src="js/cart.js"></script>

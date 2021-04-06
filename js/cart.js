@@ -1,151 +1,352 @@
-//  Cart Object
-    let cart = {}
 
-//  DOM Completeted
-    document.addEventListener('DOMContentLoaded' , () => {
-        product_list()
+//  Create cart product list
+    let cart_product_list = Object();
+
+//  Header navegation menu status
+    let header_menu_status = 0;
+
+//  Header navegation user status
+    let header_user_status = 0;
+
+//  Shopping buy status
+    let shopping_buy_status = 0;
+
+//  -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       
+
+//  App div content
+    const shopping = document.getElementById('shopping')
+
+//  DOM Load complete Completeted
+    document.addEventListener('DOMContentLoaded' , () =>
+    {
+    //  Create product list
+        product_get_list()
+
+    //  Get save cart product list
         if(localStorage.getItem('cart'))
         {
-            cart = JSON.parse(localStorage.getItem('cart'))
-            cart_product_create_list()
+        //  Set products to cart list
+            cart_product_list = JSON.parse(localStorage.getItem('cart'))
+
+        //  Create cart details
+            cart_details()
         }
     })
 
-//  Product Actions
-    const content_products = document.getElementById('cart-products')
-    content_products.addEventListener('click' , e => {
-        cart_add_product(e)
-    })
+//  Get product list contente
+    const shopping_cart_product_list = document.getElementById('shopping-cart-product-list-items')
 
-//  Cart Product Actions
-    const content_cart_products = document.getElementById('cart-product-added')
-    content_cart_products.addEventListener('click' , e => {
-        cart_products_list_actions(e.target)
-    })
+//  Get cart product list contente
+    const template_cart_product_list_item = document.getElementById('template-cart-product-list').content
+    const fragment_cart_product_list = document.createDocumentFragment()
+
+//  Get product list contente
+    const shopping_product_list = document.getElementById('shopping-product-list')
 
 //  Create Templates from HTML
-    const template_cart_product = document.getElementById('template-cart-product').content
-    const template_product_item = document.getElementById('template-product-div').content
+    const template_product_list_item = document.getElementById('template-product-list-item').content
+    const fragment_product_list = document.createDocumentFragment()
 
-//  Create Fragment
-    const fragment = document.createDocumentFragment()
-
-//  Create Product List
-    const product_list = async () => {
+//  Create product list
+    const product_get_list = async () =>
+    {
         try
         {
-            const res = await fetch('js/data.json')
+            const res = await fetch('js/products.json')
             const data = await res.json()
-
-            product_list_create(data)
+            product_create_list(data)
         }
         catch (error){}
     }
 
-//  Create Product List Item
-    const product_list_create = (data) => {
-        data.forEach(product => {
-            template_product_item.querySelector('h2').textContent = product.title
-            template_product_item.querySelector('h3').textContent = product.price
-            template_product_item.querySelector('img').setAttribute('src',product.img)
-            template_product_item.querySelector('.button').dataset.id = product.id
+//  Create product list
+    const product_create_list = (data) =>
+    {
+    //  Create product template
+        data.forEach(product =>
+        {
+            template_product_list_item.querySelector('.title').textContent = product.title
+            template_product_list_item.querySelector('.total > span').textContent = number_format_clp.format(product.price)
+            template_product_list_item.querySelector('.total').dataset.price = product.price
+            template_product_list_item.querySelector('.total').dataset.cant = 1
+            template_product_list_item.querySelector('.total').dataset.id = product.id
+            template_product_list_item.querySelector('.size').textContent = product.size
+            template_product_list_item.querySelector('img').setAttribute('src',product.img)
 
-            const clone = template_product_item.cloneNode(true)
-            fragment.appendChild(clone)
+        //  Confirm if product is added to cart list
+            if(cart_product_list.hasOwnProperty(product.id))
+            {
+            //  Icon of product in list
+                template_product_list_item.querySelector('.fas').classList.add('fa-check-circle')
+                template_product_list_item.querySelector('.fas').classList.remove('fa-plus-circle')
+            }
+            else
+            {
+            //  Icon of product in list
+                template_product_list_item.querySelector('.fas').classList.add('fa-plus-circle')
+                template_product_list_item.querySelector('.fas').classList.remove('fa-check-circle')
+            }
+
+        //  Add to product list
+            const clone_product_list = template_product_list_item.cloneNode(true)
+            fragment_product_list.appendChild(clone_product_list)
+
         });
-        content_products.appendChild(fragment)
+
+    //  Add product to list
+        shopping_product_list.appendChild(fragment_product_list)
     }
 
-//  Add Product to Cart
-    const cart_add_product = (e) => {
-        if(e.target.classList.contains('button'))
+//  -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       
+
+//  Display main menu
+    const shopping_header_menu = document.getElementById('shopping-header-menu')
+    shopping_header_menu.addEventListener('click' , e => 
+    {
+        const shopping_header_menu_categories = document.getElementById('shopping-header-menu-categories')
+
+        if(header_menu_status === 0)
         {
-            cart_add_product_confirm(e.target.parentElement.parentElement)
+            shopping_header_menu.querySelector('i').classList.remove('fa-bars')
+            shopping_header_menu.querySelector('i').classList.add('fa-times')
+
+            $(shopping_header_menu_categories).fadeIn('fast');
+
+            header_menu_status = 1;
+        }
+        else
+        {
+            shopping_header_menu.querySelector('i').classList.remove('fa-times');
+            shopping_header_menu.querySelector('i').classList.add('fa-bars');
+
+            $(shopping_header_menu_categories).fadeOut('fast');
+
+            header_menu_status = 0;
+        }
+    })
+
+//  -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       
+
+//  Display menu
+    const shopping_header_user = document.getElementById('shopping-header-user')
+    shopping_header_user.addEventListener('click' , e => 
+    {
+        const shopping_cart_product_list = document.getElementById('shopping-cart-product-list')
+
+        if(header_user_status === 0)
+        {
+            shopping_header_user.querySelector('i').classList.remove('fa-user')
+            shopping_header_user.querySelector('i').classList.add('fa-times')
+
+            $(shopping_cart_product_list).fadeIn('fast');
+
+            header_user_status = 1;
+        }
+        else
+        {
+            shopping_header_user.querySelector('i').classList.remove('fa-times');
+            shopping_header_user.querySelector('i').classList.add('fa-user');
+
+            $(shopping_cart_product_list).fadeOut('fast');
+
+            header_user_status = 0;
+        }
+    })
+
+//  -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       
+
+//  Display  menu
+    const shopping_buy = document.getElementById('shopping-buy')
+    shopping_buy.addEventListener('click' , e => 
+    {
+        const shopping_cart_product_list = document.getElementById('shopping-cart-product-list')
+
+        if(shopping_buy_status === 0)
+        {
+            $(shopping_cart_product_list).fadeIn('fast');
+
+            shopping_buy_status = 1;
+        }
+        else
+        {
+            $(shopping_cart_product_list).fadeOut('fast');
+
+            shopping_buy_status = 0;
+        }
+    })
+
+//  -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       -       
+
+//  Add actions to product
+    const product = document.querySelector('#shopping-main > section.list.grid.col-2')
+    product.addEventListener('click' , e =>
+    {
+    //  Add product to cart
+        cart_add_product(e)
+    })
+
+//  Add product to cart
+    const cart_add_product = (e) =>
+    {
+    //  Validate add to shopping cart
+        if(e.target.classList.contains('fa-plus-circle') || e.target.classList.contains('fa-check-circle') )
+        {
+            const image_fly = document.getElementById('shopping-image-fly')
+
+        //  Get data from object
+            let product = e.target.parentElement.parentElement.parentElement
+            let id = product.querySelector('.total').dataset.id
+            let title = product.querySelector('.title').textContent
+            let price = product.querySelector('.total').dataset.price
+            let size = product.querySelector('.size').textContent
+            let image = product.querySelector('img')
+            let image_src = image.getAttribute('src')
+
+        //  Save temporal object
+            let object = {
+                id : id,
+                title : title,
+                price : price,
+                size : size,
+                cant : 1,
+                image : image_src
+            }
+
+        //  Validate if the product is in the cart list
+            if(cart_product_list.hasOwnProperty(id))
+            {
+            //  Delete from cart list
+                delete cart_product_list[id]
+
+            //  Icon of product in list
+                e.target.classList.add('fa-plus-circle')
+                e.target.classList.remove('fa-check-circle')
+            }
+            else
+            {
+            //  Add to cart list
+                cart_product_list[id] = object
+
+            //  Icon of product in list
+                e.target.classList.add('fa-check-circle')
+                e.target.classList.remove('fa-plus-circle')
+
+                let image_position = offset(image);
+
+                image_fly.querySelector('img').setAttribute('src',image_src)
+                image_fly.style.width = image.clientWidth + 'px'
+                image_fly.style.height = image.clientHeight + 'px'
+                image_fly.style.left = image_position.left + 'px'
+                image_fly.style.top = image_position.top + 'px'
+
+                $("#shopping-image-fly").fadeIn(0)
+                $("#shopping-image-fly").animate(
+                {
+                    'top': ( document.scrollingElement.scrollTop + window.screen.height - 40),
+                    'left': 20,
+                    'width': 35,
+                    'height': 35
+                }, 1000, 'easeInOutExpo' , function()
+                {
+                    $("#shopping-image-fly").fadeOut('fast')
+                });
+            }
+
+        //  Create cart details
+            cart_details()
         }
         e.stopPropagation()
     }
 
-//  Cart Product list Actions
-    const cart_products_list_actions = (e) => {
-        if(e.classList.contains('fa-plus-circle'))
-        {
-            const product = cart[e.dataset.id]
-            product.cant++
-            cart[e.dataset.id] = {...product}
-            cart_product_create_list()
-        }
-        if(e.classList.contains('fa-minus-circle'))
-        {
-            const product = cart[e.dataset.id]
-            product.cant--
-            cart[e.dataset.id] = {...product}
-            if(product.cant === 0)
-            {
-                delete cart[e.dataset.id]
-            }
-            cart_product_create_list()
-        }
-        if(e.classList.contains('delete-item'))
-        {
-            delete cart[e.dataset.id]
-            cart_product_create_list()
-        }
+	function offset(el) {
+        var rect = el.getBoundingClientRect(),
+        scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
     }
 
-//  Add Product to Cart Confirm
-    const cart_add_product_confirm = object => {
-        const product = {
-            id: Number(object.querySelector('.button').dataset.id),
-            title: object.querySelector('h2').textContent,
-            price: Number(object.querySelector('h3').textContent),
-            cant: 1
-        }
-
-        if(cart.hasOwnProperty(product.id))
-        {
-            product.cant = cart[product.id].cant + 1
-        }
-
-        cart[product.id] = {...product}
-
-        cart_product_create_list()
-    }
-
-//  Create Product List Added
-    const cart_product_create_list = () =>
+//  Create cart details
+    const cart_details = () =>
     {
-        content_cart_products.innerHTML = ''
+    //  Clear cart product list
+        shopping_cart_product_list.innerHTML = ''
 
-        let i = 1
+        console.log(cart_product_list);
 
-        Object.values(cart).forEach(product =>
+    //  Create product template
+        Object.values(cart_product_list).forEach(product =>
         {
-            template_cart_product.querySelector('.id').textContent = i
-            template_cart_product.querySelector('.fa-plus-circle').dataset.id = product.id
-            template_cart_product.querySelector('.fa-minus-circle').dataset.id = product.id
-            template_cart_product.querySelector('.title').textContent = product.title
-            template_cart_product.querySelector('.price').textContent = product.price * product.cant
-            template_cart_product.querySelector('.cant').textContent = product.cant
-            template_cart_product.querySelector('.delete-item').dataset.id = product.id
-            
-            const clone = template_cart_product.cloneNode(true)
-            fragment.appendChild(clone)
+            template_cart_product_list_item.querySelector('.details-title').textContent = product.title
+            template_cart_product_list_item.querySelector('.details-price > span').textContent = number_format_clp.format(product.price)
+            template_cart_product_list_item.querySelector('.details-size').textContent = product.size
+            template_cart_product_list_item.querySelector('.details-cant').textContent = product.cant
+            template_cart_product_list_item.querySelector('.cant').dataset.id = product.id
+            template_cart_product_list_item.querySelector('img').setAttribute('src',product.image)
 
-            i++
-        })
-        content_cart_products.appendChild(fragment)
+        //  Add to product list
+            const clone_cart_product_list = template_cart_product_list_item.cloneNode(true)
+            fragment_cart_product_list.appendChild(clone_cart_product_list)
+        });
 
-        localStorage.setItem('cart' , JSON.stringify(cart))
+    //  Add product to list
+        shopping_cart_product_list.appendChild(fragment_cart_product_list)
 
-        const cart_total_cant = Object.values(cart).reduce((t, {cant}) => t + cant , 0)
-        const cart_total_price = Object.values(cart).reduce((t, {cant , price}) => t + cant * price , 0)
+    //  Create total values for cart detailes
+        const cart_total_cant = Object.values(cart_product_list).reduce((t, {cant}) => t + cant , 0)
+        const cart_total_price = Object.values(cart_product_list).reduce((t, {cant , price}) => t + cant * price , 0)
 
-        document.getElementsByClassName('cant-total')[0].innerHTML = cart_total_cant
-        document.getElementsByClassName('price-total')[0].innerHTML = cart_total_price
+        let number_products = ''
 
-        const button_empty_cart = document.getElementById('cart-empty-button')
-        button_empty_cart.addEventListener('click', e => {
-            cart = {}
-            cart_product_create_list()
-        })
+        if(cart_total_cant === 1)
+        {
+            number_products = ' Producto'
+        }
+        else
+        {
+            number_products = ' Productos'
+        }
+
+    //  Set values to UI
+        document.querySelector("#shopping-footer > div.products").innerHTML = cart_total_cant + number_products
+        document.querySelector("#shopping-footer > div.total > span").innerHTML = number_format_clp.format(cart_total_price)
+
+    //  Save cart product list
+        localStorage.setItem('cart' , JSON.stringify(cart_product_list))
     }
+
+    //  Add actions to product
+    shopping_cart_product_list.addEventListener('click' , e =>
+    {
+        if(e.target.classList.contains('fa-minus'))
+        {
+        //  Get id from product
+            let id = e.target.parentElement.parentElement.dataset.id;
+
+            const product = cart_product_list[id]
+            if(product.cant !== 1)
+            {
+                product.cant--
+            }
+
+        //  Create cart details
+            cart_details()
+        }
+        if(e.target.classList.contains('fa-plus'))
+        {
+        //  Get id from product
+            let id = e.target.parentElement.parentElement.dataset.id;
+
+            const product = cart_product_list[id]
+            product.cant++
+
+        //  Create cart details
+            cart_details()
+        }
+    })
+
+//  Number Format
+    const number_format_clp = new Intl.NumberFormat('de-DE',
+    {
+        currency: 'EUR',
+        minimumFractionDigits: 0
+    })
