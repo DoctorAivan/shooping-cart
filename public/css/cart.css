@@ -15,8 +15,19 @@
     --border-color                  :   #e5e5e5;
 
     --content-background            :   #ffffff;
+    --content-space                 :   20px;
+    --content-shadow                :   0 2.8px 2.2px rgba(0, 0, 0, 0.01),
+                                        0 6.7px 5.3px rgba(0, 0, 0, 0.02),
+                                        0 12.5px 10px rgba(0, 0, 0, 0.02),
+                                        0 22.3px 17.9px rgba(0, 0, 0, 0.02);
+
+    --status-backgroud              :   rgb(255,255,255,0.85);
 
     --cart-list-height              :   50px;
+
+    --input-background              :   #fbfbfb;
+    --input-shadow                  :   0 2.8px 2.2px rgba(0, 0, 0, 0.01),
+                                        0 6.7px 5.3px rgba(0, 0, 0, 0.02);
 
     --font-color-first              :   #000000;
     --font-color-second             :   #555555;
@@ -25,6 +36,11 @@
     --font-color-red                :   #c73232;
     --font-color-green              :   #32c74b;
 
+}
+
+::placeholder
+{
+    color: var(--font-color-third);
 }
 
 body
@@ -158,6 +174,23 @@ body
                     background: var(--font-color-red)
                 }
 
+    #shopping-status
+    {
+        position: fixed;
+        z-index: 200;
+        width: 100%;
+        height: 100%;
+        background: var(--status-backgroud);
+    }
+        #shopping-status img
+        {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            top: calc(50% - 65px);
+            left: calc(50% - 65px);
+        }
+
     #shopping
     {
         float: left;
@@ -218,6 +251,7 @@ body
             height: calc( 100% - var(--header-height) );
             padding: 0px 20px 0 20px;
             overflow: auto;
+            display: none;
         }
             #shopping-cart-product-list .header
             {
@@ -326,7 +360,277 @@ body
                     text-align: center;
                     padding: 13px 0 0 0;
                 }
+/*
 
+    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
+
+*/
+        #shopping .form
+        {
+            position: fixed;
+            z-index: 40;
+            width: calc(100% - ( var(--padding) * 2 ));
+            padding: 22px var(--padding) 20px var(--padding);
+            background: var(--body-background);
+            top: var(--header-height);
+            height: calc( 100% - var(--header-height) - 42px );
+            overflow: auto;
+            display: none;
+            -webkit-overflow-scrolling: touch;
+        }
+            #shopping .form h2
+            {
+                float: left;
+                width: 100%;
+                font-size: 1.2rem;
+                line-height: 1.2rem;
+                font-weight: 600;
+                padding: 0 0 22px 0;
+            }
+                #shopping .form h2 i
+                {
+                    font-size: 1.1rem;
+                    margin: 0 10px 0 0;
+                }
+
+            #shopping .form section
+            {
+                float: left;
+                width: calc(100% - ( var(--padding) * 2 ));
+                padding: 8px var(--padding) 0px var(--padding);
+                background: var(--content-background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--content-shadow);
+                margin: 0 0 var(--padding) 0;
+            }
+                #shopping .form section h2
+                {
+                    float: left;
+                    width: 100%;
+                    color: var(--font-color-first);
+                    font-size: 1rem;
+                    line-height: 1rem;
+                    font-weight: 500;
+                    padding: 10px 0 20px 0;
+                }
+                #shopping .form section h2 i
+                {
+                    font-size: 0.9rem;
+                    margin: 0 8px 0 0;
+                }
+                #shopping .form section .group
+                {
+                    float: left;
+                    width: 100%;
+                }
+                    #shopping .form section .item
+                    {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+                        #shopping .form section .item h3
+                        {
+                            float: left;
+                            width: 100%;
+                            color: var(--font-color-second);
+                            font-size: 0.9rem;
+                            line-height: 0.9rem;
+                            font-weight: 400;
+                            padding: 0 0 11px 0;
+                        }
+                            #shopping .form section .item h3 span
+                            {
+                                font-weight: 300;
+                                color: var(--font-color-third);
+                                margin: 0 0 0 8px;
+                            }
+                        #shopping .form section .item p
+                        {
+                            float: left;
+                            width: 100%;
+                            color: var(--font-color-third);
+                            font-size: 0.8rem;
+                            line-height: 0.8rem;
+                            font-weight: 300;
+                            padding: 11px 0 0 0;
+                        }
+
+            #shopping .form input
+            {
+                float: left;
+                width: calc(100% - 17px);
+                height: 38px;
+                font-family: 'Ubuntu';
+                background: var(--input-background);
+                border: solid 1px var(--border-color);
+                border-radius: var(--border-radius);
+                font-size: 0.9rem;
+                line-height: 0.9rem;
+                font-weight: 300;
+                padding: 0 0 4px 15px;
+                outline: none;
+                -webkit-appearance: none;
+            }
+                #shopping .form input:focus
+                {
+                    color: var(--font-color-blue);
+                    background: var(--content-background);
+                    border: solid 1px var(--font-color-blue);
+                    box-shadow: var(--input-shadow)
+                }
+
+            #shopping .form textarea
+            {
+                float: left;
+                width: calc(100% - 32px);
+                font-family: 'Ubuntu';
+                background: var(--input-background);
+                border: solid 1px var(--border-color);
+                border-radius: var(--border-radius);
+                font-size: 0.9rem;
+                line-height: 1.2rem;
+                font-weight: 300;
+                padding: 12px 15px 14px 15px;
+                outline: none;
+                -webkit-appearance: none;
+            }
+                #shopping .form textarea:focus
+                {
+                    color: var(--font-color-blue);
+                    background: var(--content-background);
+                    border: solid 1px var(--font-color-blue);
+                    box-shadow: var(--input-shadow)
+                }
+
+            #shopping .form select
+            {
+                float: left;
+                width: calc(100%);
+                height: 44px;
+                font-family: 'Ubuntu';
+                background: var(--input-background);
+                border: solid 1px var(--border-color);
+                border-radius: var(--border-radius);
+                font-size: 0.9rem;
+                line-height: 0.9rem;
+                font-weight: 300;
+                padding: 0 15px 4px 15px;
+                outline: none;
+                -webkit-appearance: none;
+            }
+                #shopping .form select:focus
+                {
+                    color: var(--font-color-blue);
+                    background: var(--content-background);
+                    border: solid 1px var(--font-color-blue);
+                    box-shadow: var(--input-shadow)
+                }
+            
+            #shopping .form .item-checkbox
+            {
+                float: left;
+                width: 100%;
+                margin-bottom: 20px;
+                display: grid;
+                grid-template-columns: 55px 1fr;
+                grid-gap: var(--padding);
+            }
+                #shopping .form .item-checkbox span
+                {
+                    float: left;
+                    width: 100%;
+                    color: var(--font-color-second);
+                    font-size: 0.9rem;
+                    line-height: 0.9rem;
+                    font-weight: 400;
+                    padding: 7px 0 0 0;
+                }
+                #shopping .form input.apple-switch
+                {
+                    position: relative;
+                    -webkit-appearance: none;
+                    outline: none;
+                    width: 50px;
+                    height: 30px;
+                    background-color: var(--border-color);
+                    border: 1px solid var(--border-color);
+                    border-radius: 50px;
+                }
+                    #shopping .form input.apple-switch:after
+                    {
+                        content: "";
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        background: var(--content-background);
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 50%;
+                        transition: all 0.2s ease;
+                    }
+                    #shopping .form input.apple-switch:checked
+                    {
+                        box-shadow: inset 20px 0 0 0 var(--font-color-green);
+                        border-color: var(--font-color-green);
+                    }
+                    #shopping .form input.apple-switch:checked:after
+                    {
+                        left: 20px;
+                        box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+                    }
+
+            #shopping .form footer
+            {
+                float: left;
+                width: 100%;
+                padding: 0 0 20px 0;
+            }
+                #shopping .form .navegation-col-2
+                {
+                    grid-template-columns: 1fr 50px;
+                }
+                #shopping .form footer .button
+                {
+                    float: left;
+                    width: 100%;
+                    text-align: center;
+                    border-radius: var(--border-radius);
+                    box-shadow: var(--content-shadow);
+                    padding: 13px 0 16px 0;
+                    outline: none;
+                }
+                    #shopping .form footer .button i
+                    {
+                        font-size: 0.9rem;
+                    }
+                    #shopping .form footer .button span
+                    {
+                        font-size: 1rem;
+                        line-height: 1rem;
+                        font-weight: 400;
+                        margin: 0 0 0 12px;
+                    }
+                #shopping .form footer .button-confirm
+                {
+                    color: var(--content-background);
+                    background: var(--font-color-green);
+                }
+                #shopping .form footer .button-cancel
+                {
+                    color: var(--content-background);
+                    background: var(--font-color-red);
+                }
+                #shopping .form footer .button-delete
+                {
+                    color: var(--content-background);
+                    background: var(--font-color-red);
+                }
+/*
+
+    -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
+
+*/
         #shopping .menu
         {
             position: fixed;
@@ -337,6 +641,7 @@ body
             height: calc( 100% - var(--header-height) );
             overflow: auto;
             display: none;
+            -webkit-overflow-scrolling: touch;
         }
             #shopping .menu .sub-menu
             {
@@ -463,13 +768,24 @@ body
                     overflow: hidden;
                     background: #ffffff;
                     border-radius: var(--border-radius);
-                    box-shadow:
-                    0 2.8px 2.2px rgba(0, 0, 0, 0.01),
-                    0 6.7px 5.3px rgba(0, 0, 0, 0.02),
-                    0 12.5px 10px rgba(0, 0, 0, 0.03),
-                    0 22.3px 17.9px rgba(0, 0, 0, 0.04);
+                    box-shadow: var(--content-shadow);
                     padding: 0 0 65px 0;
                 }
+                    #shopping-main .list article .admin
+                    {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        background: var(--font-color-blue);
+                        border-radius: 0 0 0 var(--border-radius);
+                    }
+                        #shopping-main .list article .admin i
+                        {
+                            float: left;
+                            color: var(--content-background);
+                            font-size: 1rem;
+                            padding: 10px;
+                        }
                     #shopping-main .list article figure
                     {
                         float: left;
@@ -623,131 +939,21 @@ body
                     font-weight: 500;
                 }
 
-#cart
-{
-    float: left;
-    width: calc(100% - calc( var(--padding) * 2));
-    padding: 20px var(--padding) 20px var(--padding);
-}
-    #cart h1
-    {
-        float: left;
-        width: 100%;
-        padding: 0 0 10px 0;
-    }
-    #cart-list
-    {
-        float: left;
-        width: 100%;
-        margin: 0 0 var(--padding) 0;
-        display: none;
-    }
-        #cart-list .header
-        {
-            float: left;
-            color: #aaa;
-            padding: 10px 0 15px 0 !important;
-        }
-        #cart-list-added
-        {
-            float: left;
-            width: 100%;
-        }
-        #cart .cart-list-product
-        {
-            float: left;
-            width: 100%;
-            font-size: 1rem;
-            line-height: 1rem;
-            display: grid;
-            border-bottom: 1px solid #777;
-            grid-template-columns: 20px 1fr 20px 15px 15px calc( var(--padding) * 2) 85px;
-            grid-gap: 25px;
-            padding: 11px 0 11px 0;
-        }
-            #cart .cart-list-product div
-            {
-                margin: 1px 0 0 0;
-            }
-            #cart .cart-list-product i
-            {
-                font-size: 1.2rem;
-                margin: 1px 0 0 0;
-            }
-            #cart .cart-list-product .cant
-            {
-                text-align: right;
-            }
-            #cart .cart-list-product .price
-            {
-                text-align: right;
-            }
-            #cart .cart-list-product .button
-            {
-                float: left;
-                width: 100%;
-                margin: 0 0 0 0;
-                padding: 5px 0 6px 0;
-                font-size: 0.8rem;
-                line-height: 0.8rem;
-                border-radius: 6px;
-                background: #888;
-                text-align: center;
-            }
-    #cart-products
+    .grid
     {
         float: left;
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr;
         grid-gap: var(--padding);
     }
-        #cart-products .cart-products-item
+        .col-1
         {
-            float: left;
-            width: 100%;
+            grid-template-columns: 1fr;
         }
-            #cart-products .cart-products-item img
-            {
-                float: left;
-                width: 100%;
-            }
-            #cart-products .cart-products-item header
-            {
-                float: left;
-                width: 100%;
-                padding: 15px 0 15px 0;
-            }
-                #cart-products .cart-products-item header h2
-                {
-                    float: left;
-                    width: 100%;
-                    font-size: 1.2rem;
-                    line-height: 1.2rem;
-                    font-weight: 500;
-                    padding: 0 0 5px 0;
-                }
-                #cart-products .cart-products-item header h3
-                {
-                    float: left;
-                    width: 100%;
-                    font-size: 1rem;
-                    line-height: 1rem;
-                    font-weight: 300;
-                }
-            #cart-products .cart-products-item .button
-            {
-                float: left;
-                width: 100%;
-                padding: 8px 0 13px 0;
-                font-size: 1rem;
-                line-height: 1rem;
-                border-radius: 10px;
-                background: #888;
-                text-align: center;
-            }
-
-
+        .col-2
+        {
+            grid-template-columns: 1fr 1fr;
+        }
 
     .line-1
     {

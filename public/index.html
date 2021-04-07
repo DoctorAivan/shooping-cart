@@ -17,8 +17,29 @@
     <!-- Libreria Iconos Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyAYKxMNaCM9ZY7iiEASIVk7ANcHsd_sgFQ",
+            authDomain: "shopping-cart-9a2f6.firebaseapp.com",
+            databaseURL: "https://shopping-cart-9a2f6-default-rtdb.firebaseio.com",
+            projectId: "shopping-cart-9a2f6",
+            storageBucket: "shopping-cart-9a2f6.appspot.com",
+            messagingSenderId: "417935558367",
+            appId: "1:417935558367:web:80131175851c7649930b6a"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    
     <!-- Libreria de estilo CSS -->
-    <link rel="stylesheet" type="text/css" href="css/cart.css"/>
+    <link rel="stylesheet" type="text/css" href="css/cart.css?v=1.7"/>
 
 </head>
 <body>
@@ -44,12 +65,16 @@
         </div>
     </div>
 
+    <div id="shopping-status">
+        <img src="img/loading.gif" />
+    </div>
+
     <div id="shopping">
         <div id="shopping-image-fly"><img src="" /></div>
         <header id="shopping-header">
             <div id="shopping-header-menu" class="icon"><i class="fas fa-bars"></i></div>
-            <div class="title">PELUDISTORE</div>
-            <div id="shopping-header-user" class="icon"><i class="fas fa-user"></i></div>
+            <div class="title">TIRNDA</div>
+            <div id="shopping-header-user" class="icon"><i class="fas fa-plus-circle"></i></div>
         </header>
         <div id="shopping-cart-product-list">
             <div class="header">
@@ -60,6 +85,89 @@
                 <div class="ckeck-out">Realizar pedido</div>
             </div>
         </div>
+
+        <div class="form" id="shopping-product-add">
+            <form id="form-product">
+                <header>
+                    <h2 id="form-product-header"></h2>
+                </header>
+                <section>
+                    <h2><i class="fas fa-file-alt"></i> Información</h2>
+                    <div class="item">
+                        <h3>Categoria <span>Obligatorio</span></h3>
+                        <select id="product-category">
+                            <optgroup label="Swedish Cars">
+                                <option value="frutas">Frutas</option>
+                                <option value="verduras">Verduras</option>
+                            </optgroup>
+                            <optgroup label="German Cars">
+                                <option value="mercedes">Mercedes</option>
+                                <option value="audi">Audi</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <h3>Titulo <span>Obligatorio</span></h3>
+                        <input id="product-title" type="text" placeholder="Nombre del producto" />
+                    </div>
+                    <div class="item">
+                        <h3>Marca <span>Opcional</span></h3>
+                        <input id="product-brand" type="text" placeholder="Nestle, Costa, Whatts" />
+                    </div>
+                    <div class="item">
+                        <h3>Descripción <span>Opcional</span></h3>
+                        <textarea id="product-description" rows="2" maxlength="70"></textarea>
+                        <p>Maximo 70 caracteres</p>
+                    </div>
+                    <h2><i class="fas fa-calculator"></i> Costo y volumen</h2>
+                    <div class="item">
+                        <h3>Precio del producto<span>Obligatorio</span></h3>
+                        <input id="product-price" type="tel" placeholder="1000" />
+                    </div>
+                    <div class="grid col-2">
+                        <div class="item">
+                            <h3>Volumen</h3>
+                            <input id="product-size" type="text" placeholder="1" />
+                        </div>
+                        <div class="item">
+                            <h3>Tipo medida</h3>
+                            <select id="product-size-type" name="hola"></select>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2><i class="fas fa-image"></i> Multimedia</h2>
+                    <div class="item">
+                        <h3>URL de la imagen <span>Obligatorio</span></h3>
+                        <textarea id="product-image" rows="3"></textarea>
+                        <p>Copiar la URL completa del objeto</p>
+                    </div>
+                </section>
+                <section>
+                    <h2><i class="fas fa-cog"></i> Configuracion</h2>
+                    <div class="item-checkbox">
+                        <input id="product-status" class="apple-switch" type="checkbox" />
+                        <span>Producto publicado</span>
+                    </div>
+                </section>
+
+                <footer class="grid navegation-col-2">
+                    <button type="submit" class="button button-confirm">
+                        <i class="fas fa-plus"></i><span>Guardar producto</span>
+                    </button>
+                    <button type="button" onclick="ui_product.close()" class="button button-cancel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </footer>
+
+                <footer class="grid col-1" id="form-product-delete">
+                    <button type="button" class="button button-delete" onclick="ui_product.delete()">
+                        <i class="far fa-trash-alt"></i><span>Eliminar el producto</span>
+                    </button>
+                </footer>
+            </form>
+        </div>
+
         <div class="menu" id="shopping-header-menu-categories">
             <div class="sub-menu">
                 <h2><i class="fas fa-plus"></i> Productos</h2>
@@ -116,6 +224,7 @@
                 </ul>
             </div>
         </div>
+
         <main id="shopping-main">
             <section class="header">
                 <h2>Verduras</h2>
@@ -136,34 +245,9 @@
         </footer>
     </div>
 
-    <div id="cart" style="display: none;">
-        <h1>shopping Store Demo</h1>
-        <div id="cart-list">
-            <div class="cart-list-product header">
-                <div>#</div>
-                <div>Product Name</div>
-                <div class="cant">Cant</div>
-                <div></div>
-                <div></div>
-                <div class="price">Price</div>
-                <div>Options</div>
-            </div>
-            <div id="cart-product-added"></div>
-            <div class="cart-list-product">
-                <div></div>
-                <div>Products overview</div>
-                <div class="cant cant-total">Cant</div>
-                <div></div>
-                <div></div>
-                <div class="price price-total">Price</div>
-                <div class="button" id="cart-empty-button">EMPTY</div>
-            </div>
-        </div>
-        <div id="cart-products"></div>
-    </div>
-
     <template id="template-product-list-item">
         <article>
+            <div class="admin"><i class="fas fa-cog"></i></div>
             <figure>
                 <img src="https://jumbo.vteximg.com.br/arquivos/ids/424552-180-180/Limon-malla-1-kg.jpg?v=637521224850000000" />
             </figure>
@@ -211,7 +295,8 @@
         </article>
     </template>
 
-    <script type="text/javascript" src="js/cart.js"></script>
+    <script type="text/javascript" src="js/cart.js?v=1.7"></script>
+    <script type="text/javascript" src="js/firebase.db.js?v=1.7"></script>
 
 </body>
 </html>

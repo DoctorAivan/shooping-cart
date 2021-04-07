@@ -19,8 +19,8 @@
 //  DOM Load complete Completeted
     document.addEventListener('DOMContentLoaded' , () =>
     {
-    //  Create product list
-        product_get_list()
+    //  Get product from DB
+        db_product_get()
 
     //  Get save cart product list
         if(localStorage.getItem('cart'))
@@ -48,43 +48,48 @@
     const fragment_product_list = document.createDocumentFragment()
 
 //  Create product list
-    const product_get_list = async () =>
-    {
-        try
-        {
-            const res = await fetch('js/products.json')
-            const data = await res.json()
-            product_create_list(data)
-        }
-        catch (error){}
-    }
-
-//  Create product list
     const product_create_list = (data) =>
     {
+    //  Clear container
+        shopping_product_list.innerHTML = ''
+
     //  Create product template
-        data.forEach(product =>
+        data.forEach(doc =>
         {
+            const product = doc.data()
+
+            let size = ''
+            if(product.size === 1)
+            {
+                size = `${product.size} ${obj_size_type[product.size_type].s}`
+            }
+            else
+            {
+                size = `${product.size} ${obj_size_type[product.size_type].m}`
+            }
+
+            template_product_list_item.querySelector('.admin').dataset.id = doc.id
             template_product_list_item.querySelector('.title').textContent = product.title
+            template_product_list_item.querySelector('.details').textContent = product.description
             template_product_list_item.querySelector('.total > span').textContent = number_format_clp.format(product.price)
             template_product_list_item.querySelector('.total').dataset.price = product.price
             template_product_list_item.querySelector('.total').dataset.cant = 1
-            template_product_list_item.querySelector('.total').dataset.id = product.id
-            template_product_list_item.querySelector('.size').textContent = product.size
-            template_product_list_item.querySelector('img').setAttribute('src',product.img)
+            template_product_list_item.querySelector('.total').dataset.id = doc.id
+            template_product_list_item.querySelector('.size').textContent = size
+            template_product_list_item.querySelector('img').setAttribute('src',product.image)
 
         //  Confirm if product is added to cart list
-            if(cart_product_list.hasOwnProperty(product.id))
+            if(cart_product_list.hasOwnProperty(doc.id))
             {
             //  Icon of product in list
-                template_product_list_item.querySelector('.fas').classList.add('fa-check-circle')
-                template_product_list_item.querySelector('.fas').classList.remove('fa-plus-circle')
+                template_product_list_item.querySelector('.icon > .fas').classList.add('fa-check-circle')
+                template_product_list_item.querySelector('.icon > .fas').classList.remove('fa-plus-circle')
             }
             else
             {
             //  Icon of product in list
-                template_product_list_item.querySelector('.fas').classList.add('fa-plus-circle')
-                template_product_list_item.querySelector('.fas').classList.remove('fa-check-circle')
+                template_product_list_item.querySelector('.icon > .fas').classList.add('fa-plus-circle')
+                template_product_list_item.querySelector('.icon > .fas').classList.remove('fa-check-circle')
             }
 
         //  Add to product list
@@ -131,23 +136,23 @@
     const shopping_header_user = document.getElementById('shopping-header-user')
     shopping_header_user.addEventListener('click' , e => 
     {
-        const shopping_cart_product_list = document.getElementById('shopping-cart-product-list')
-
         if(header_user_status === 0)
         {
-            shopping_header_user.querySelector('i').classList.remove('fa-user')
+            shopping_header_user.querySelector('i').classList.remove('fa-plus-circle')
             shopping_header_user.querySelector('i').classList.add('fa-times')
 
-            $(shopping_cart_product_list).fadeIn('fast');
+        //  User interface
+            ui_product.add()
 
             header_user_status = 1;
         }
         else
         {
             shopping_header_user.querySelector('i').classList.remove('fa-times');
-            shopping_header_user.querySelector('i').classList.add('fa-user');
+            shopping_header_user.querySelector('i').classList.add('fa-plus-circle');
 
-            $(shopping_cart_product_list).fadeOut('fast');
+        //  User interface
+            ui_product.close()
 
             header_user_status = 0;
         }
@@ -252,9 +257,20 @@
                 });
             }
 
+        //  db_product_add(object)
+
         //  Create cart details
             cart_details()
         }
+
+    //  Product admin options
+        if(e.target.classList.contains('fa-cog') )
+        {
+            let product = e.target.parentElement
+            let id = product.dataset.id
+            ui_product.edit(id)
+        }
+
         e.stopPropagation()
     }
 
@@ -270,8 +286,6 @@
     {
     //  Clear cart product list
         shopping_cart_product_list.innerHTML = ''
-
-        console.log(cart_product_list);
 
     //  Create product template
         Object.values(cart_product_list).forEach(product =>
